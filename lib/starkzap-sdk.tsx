@@ -41,10 +41,52 @@ export function StarkzapProvider({ children }: StarkzapProviderProps) {
 
     try {
       setIsConnecting(true)
-      const connected = await sdk.connectCartridge({ feeMode: 'sponsored' })
-      await connected.ensureReady({ deploy: 'if_needed', feeMode: 'sponsored' })
-      setWallet(connected)
-      return connected
+      const { connect } = await import('get-starknet')
+      const connected = await connect({ modalMode: 'alwaysAsk', modalTheme: 'light' })
+      
+      if (!connected || !connected.account) {
+        setIsConnecting(false)
+        return null
+      }
+
+      const connectedAny = connected as any
+
+      // If it's the Cartridge Controller, we can use the specialized method
+      if (connected.id === 'cartridge') {
+        const cartridgeWallet = await sdk.connectCartridge({ feeMode: 'sponsored' })
+        await cartridgeWallet.ensureReady({ deploy: 'if_needed', feeMode: 'sponsored' })
+        setWallet(cartridgeWallet)
+        return cartridgeWallet
+      }
+
+      // For Argent X, Braavos, etc. we wrap the account in a starkzap Signer
+      const signer = {
+        getPubKey: async () => {
+          if (connectedAny.account.getPublicKey) {
+            return await connectedAny.account.getPublicKey()
+          }
+          return connectedAny.account.address
+        },
+        signRaw: async (hash: string) => {
+          return await connectedAny.account.signer.signRaw(hash)
+        }
+      }
+
+      const starkzapWallet = await sdk.connectWallet({
+        account: {
+          signer: signer as any,
+        },
+        accountAddress: connectedAny.account.address,
+        feeMode: 'sponsored'
+      })
+
+      await starkzapWallet.ensureReady({ deploy: 'if_needed', feeMode: 'sponsored' })
+      
+      setWallet(starkzapWallet)
+      return starkzapWallet
+    } catch (err) {
+      console.error('Wallet connection failed:', err)
+      return null
     } finally {
       setIsConnecting(false)
     }

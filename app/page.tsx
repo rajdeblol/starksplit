@@ -14,12 +14,21 @@ export default function HomePage() {
           <p className="mt-5 max-w-2xl text-2xl leading-relaxed text-slate-600">
             Gasless payments on Starknet. Every split is an immutable proof.
           </p>
-          <Link
-            href="/create"
-            className="neo-btn mt-8 inline-flex bg-blue-600 px-7 py-4 text-lg font-bold text-white"
-          >
-            Create a bill
-          </Link>
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <Link
+              href="/create"
+              className="neo-btn inline-flex bg-blue-600 px-7 py-4 text-lg font-bold text-white"
+            >
+              Create a bill
+            </Link>
+            <a
+              href="#how-it-works"
+              className="neo-btn inline-flex bg-white px-7 py-4 text-lg font-bold text-slate-900"
+            >
+              How it works
+            </a>
+          </div>
+          
           <div className="mt-8 flex flex-wrap gap-3 text-sm">
             {['No gas fees', 'Onchain proof'].map((pill) => (
               <span
@@ -29,6 +38,28 @@ export default function HomePage() {
                 {pill}
               </span>
             ))}
+          </div>
+
+          <div id="how-it-works" className="mt-16 space-y-6 scroll-mt-20">
+            <h2 className="text-2xl font-black uppercase tracking-tight text-slate-900">How it works</h2>
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div className="neo-card p-5">
+                <p className="text-lg font-bold text-blue-600 uppercase">1. Create</p>
+                <p className="mt-2 text-slate-600">Enter bill details, add participants and their shares. No wallet needed to start.</p>
+              </div>
+              <div className="neo-card p-5">
+                <p className="text-lg font-bold text-blue-600 uppercase">2. Share</p>
+                <p className="mt-2 text-slate-600">Send unique payment links to your friends via any chat app.</p>
+              </div>
+              <div className="neo-card p-5">
+                <p className="text-lg font-bold text-blue-600 uppercase">3. Pay</p>
+                <p className="mt-2 text-slate-600">Friends connect their Argent X or Braavos wallet and pay gasless. Simple.</p>
+              </div>
+              <div className="neo-card p-5">
+                <p className="text-lg font-bold text-blue-600 uppercase">4. Verify</p>
+                <p className="mt-2 text-slate-600">Once paid, check the transaction on the Starknet explorer for immutable proof.</p>
+              </div>
+            </div>
           </div>
         </section>
 
