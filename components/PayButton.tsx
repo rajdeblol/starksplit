@@ -1,7 +1,7 @@
 'use client'
 
 import { useStarkzap } from '@starkzap/sdk'
-import { CONTRACT_ADDRESS, TOKEN_ADDRESSES } from '@/lib/contract'
+import { CONTRACT_ADDRESS } from '@/lib/contract'
 import { toU256Parts } from '@/lib/utils'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -16,7 +16,7 @@ interface PayButtonProps {
 }
 
 export function PayButton({ billId, participantId, amount, currency, labelAmount }: PayButtonProps) {
-  const { executeGasless, walletAddress } = useStarkzap()
+  const { executeGasless, walletAddress, connectWallet, isConnected, isConnecting } = useStarkzap()
   const [status, setStatus] = useState<'idle' | 'pending' | 'success' | 'error'>('idle')
   const router = useRouter()
 
@@ -54,11 +54,23 @@ export function PayButton({ billId, participantId, amount, currency, labelAmount
     }
   }
 
+  if (!isConnected) {
+    return (
+      <button
+        onClick={connectWallet}
+        disabled={isConnecting}
+        className="neo-btn w-full bg-blue-600 py-4 text-lg text-white"
+      >
+        {isConnecting ? 'Connecting wallet...' : 'Connect Wallet to Pay'}
+      </button>
+    )
+  }
+
   return (
     <button
       onClick={handlePay}
       disabled={status === 'pending' || status === 'success'}
-      className="w-full rounded-xl bg-violet-600 px-6 py-4 text-lg font-semibold text-white transition-all active:scale-95 hover:bg-violet-700 disabled:opacity-50"
+      className="neo-btn w-full bg-blue-600 py-4 text-lg text-white disabled:cursor-not-allowed disabled:opacity-70"
     >
       {status === 'idle' && `Pay ${labelAmount} ${currency}`}
       {status === 'pending' && 'Confirming on Starknet...'}

@@ -12,8 +12,11 @@ interface ExecuteGaslessInput {
 }
 
 interface StarkzapContextValue {
+  connectWallet: () => Promise<void>
   executeGasless: (input: ExecuteGaslessInput) => Promise<{ transaction_hash: string }>
   walletAddress: string | null
+  isConnected: boolean
+  isConnecting: boolean
 }
 
 const StarkzapContext = createContext<StarkzapContextValue | null>(null)
@@ -25,6 +28,7 @@ interface StarkzapProviderProps {
 
 export function StarkzapProvider({ children }: StarkzapProviderProps) {
   const [wallet, setWallet] = useState<WalletInterface | null>(null)
+  const [isConnecting, setIsConnecting] = useState(false)
 
   const sdk = useMemo(() => {
     // `apiKey` is accepted to match expected app wiring even though
@@ -32,18 +36,23 @@ export function StarkzapProvider({ children }: StarkzapProviderProps) {
     return new StarkZap({ network: 'mainnet' })
   }, [])
 
-  const getWallet = useCallback(async () => {
+  const connectWallet = useCallback(async () => {
     if (wallet) return wallet
 
-    const connected = await sdk.connectCartridge({ feeMode: 'sponsored' })
-    await connected.ensureReady({ deploy: 'if_needed', feeMode: 'sponsored' })
-    setWallet(connected)
-    return connected
+    try {
+      setIsConnecting(true)
+      const connected = await sdk.connectCartridge({ feeMode: 'sponsored' })
+      await connected.ensureReady({ deploy: 'if_needed', feeMode: 'sponsored' })
+      setWallet(connected)
+      return connected
+    } finally {
+      setIsConnecting(false)
+    }
   }, [wallet, sdk])
 
   const executeGasless = useCallback(
     async ({ contractAddress, entrypoint, calldata }: ExecuteGaslessInput) => {
-      const connected = await getWallet()
+      const connected = wallet ?? (await connectWallet())
 
       const tx = await connected.execute(
         [
@@ -59,12 +68,20 @@ export function StarkzapProvider({ children }: StarkzapProviderProps) {
       await tx.wait()
       return { transaction_hash: tx.hash }
     },
-    [getWallet],
+    [wallet, connectWallet],
   )
 
   return (
     <StarkzapContext.Provider
-      value={{ executeGasless, walletAddress: wallet?.address ?? null }}
+      value={{
+        connectWallet: async () => {
+          await connectWallet()
+        },
+        executeGasless,
+        walletAddress: wallet?.address ?? null,
+        isConnected: Boolean(wallet?.address),
+        isConnecting,
+      }}
     >
       {children}
     </StarkzapContext.Provider>

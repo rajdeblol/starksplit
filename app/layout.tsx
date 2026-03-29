@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { Toaster } from 'react-hot-toast'
 import { StarkzapProvider } from '@starkzap/sdk'
+import { AppShell } from '@/components/AppShell'
 import './globals.css'
 
 const geistSans = localFont({
@@ -24,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} bg-white text-gray-900 antialiased`}>
         <StarkzapProvider apiKey={process.env.NEXT_PUBLIC_STARKZAP_API_KEY}>
-          {children}
+          <AppShell>{children}</AppShell>
           <Toaster
             position="top-center"
             toastOptions={{

@@ -31,7 +31,7 @@ export default function BillDashboardPage() {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? window.location.origin
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-4xl space-y-5 px-4 py-8 sm:px-6">
+    <main className="mx-auto min-h-screen w-full max-w-5xl space-y-5 px-4 py-8 sm:px-6">
       <BillCard
         title={bill.title}
         totalAmount={Number(bill.total_amount)}
@@ -42,13 +42,13 @@ export default function BillDashboardPage() {
 
       <ShareLinkBox url={`${appUrl}/b/${bill.slug}`} />
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-5">
+      <section className="neo-card p-5">
         <div className="mb-3 flex items-center justify-between text-sm font-medium">
           <span>{paidCount} of {bill.participants.length} paid</span>
           <span>{Math.round(progress)}%</span>
         </div>
         <div className="h-2 rounded-full bg-gray-100">
-          <div className="h-2 rounded-full bg-violet-600 transition-all" style={{ width: `${progress}%` }} />
+          <div className="h-2 rounded-full bg-blue-600 transition-all" style={{ width: `${progress}%` }} />
         </div>
       </section>
 

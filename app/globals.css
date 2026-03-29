@@ -4,15 +4,65 @@
 
 :root {
   --primary: #7c3aed;
+  --bg: #d8e0eb;
+  --ink: #0f172a;
 }
 
 html,
 body {
   min-height: 100%;
+  background: var(--bg);
 }
 
 * {
   box-sizing: border-box;
+}
+
+.neo-card {
+  border: 3px solid var(--ink);
+  border-radius: 20px;
+  background: #f8fbff;
+  box-shadow: 6px 6px 0 0 var(--ink);
+}
+
+.neo-btn {
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 4px 4px 0 0 var(--ink);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+}
+
+.neo-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 var(--ink);
+}
+
+.neo-logo {
+  border: 3px solid var(--ink);
+  background: #0f2150;
+  color: white;
+  border-radius: 4px;
+  box-shadow: 4px 4px 0 0 var(--ink);
+  padding: 10px 18px;
+  font-size: 1.7rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.neo-tab {
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 3px 3px 0 0 var(--ink);
+  padding: 10px 16px;
+  font-weight: 800;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.neo-tab:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 0 var(--ink);
 }
 
 .receipt-stamp {

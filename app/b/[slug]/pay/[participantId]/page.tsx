@@ -53,20 +53,20 @@ export default function ParticipantPayPage() {
   return (
     <main className="mx-auto min-h-screen w-full max-w-3xl space-y-5 px-4 py-8 sm:px-6">
       <header>
-        <h1 className="text-3xl font-bold">{bill.title}</h1>
-        <p className="mt-1 text-gray-600">Created by {bill.creator_address || 'StarkSplit user'}</p>
+        <h1 className="text-3xl font-black uppercase tracking-tight">{bill.title}</h1>
+        <p className="mt-1 text-slate-600">Created by {bill.creator_address || 'StarkSplit user'}</p>
       </header>
 
-      <section className="rounded-2xl border border-violet-200 bg-violet-50 p-6">
-        <p className="text-sm font-medium text-violet-700">Your share</p>
-        <p className="mt-2 text-4xl font-bold text-violet-800">{displayAmount} {bill.currency}</p>
+      <section className="neo-card bg-blue-50 p-6">
+        <p className="text-sm font-bold uppercase text-blue-700">Your share</p>
+        <p className="mt-2 text-4xl font-black text-slate-900">{displayAmount} {bill.currency}</p>
       </section>
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-5">
-        <h2 className="text-lg font-semibold">Bill breakdown</h2>
+      <section className="neo-card p-5">
+        <h2 className="text-lg font-black uppercase">Bill breakdown</h2>
         <div className="mt-3 space-y-2">
           {bill.participants.map((p: { id: string; name: string; share_amount: number }) => (
-            <div key={p.id} className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2 text-sm">
+            <div key={p.id} className="flex items-center justify-between rounded-lg border-2 border-slate-900 bg-white px-3 py-2 text-sm">
               <span>{p.name}</span>
               <span>{formatAmount(Number(p.share_amount))} {bill.currency}</span>
             </div>
