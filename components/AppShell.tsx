@@ -31,8 +31,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </Link>
             ))}
           </nav>
-
-          <WalletButton />
         </div>
       </header>
 
