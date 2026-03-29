@@ -1,4 +1,13 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@google-cloud/pino-logging-gcp-config': false,
+    }
 
-export default nextConfig;
+    return config
+  },
+}
+
+export default nextConfig

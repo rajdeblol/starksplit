@@ -1,0 +1,5 @@
+
+[sncast.myaccount]
+account = "myaccount"
+accounts-file = "/Users/raj/.starknet_accounts/starknet_open_zeppelin_accounts.json"
+network = "mainnet"

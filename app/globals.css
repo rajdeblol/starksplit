@@ -3,25 +3,29 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #7c3aed;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100%;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+* {
+  box-sizing: border-box;
+}
+
+.receipt-stamp {
+  animation: stamp-in 380ms ease-out both;
+}
+
+@keyframes stamp-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) rotate(-8deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
   }
 }

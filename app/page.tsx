@@ -1,101 +1,59 @@
-import Image from "next/image";
+import Link from 'next/link'
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <main className="min-h-screen bg-gradient-to-b from-violet-50 to-white">
+      <div className="mx-auto flex max-w-6xl flex-col gap-14 px-4 py-16 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+        <section className="max-w-xl">
+          <p className="mb-4 inline-block rounded-full border border-violet-200 bg-violet-100 px-4 py-1 text-sm font-medium text-violet-700">
+            Starknet Mainnet • Gasless
+          </p>
+          <h1 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl">
+            Split bills. Pay onchain. No excuses.
+          </h1>
+          <p className="mt-5 text-lg text-gray-600">
+            Gasless payments on Starknet. Every split is an immutable proof.
+          </p>
+          <Link
+            href="/create"
+            className="mt-8 inline-flex rounded-xl bg-violet-600 px-6 py-3 text-base font-semibold text-white transition hover:bg-violet-700"
+          >
+            Create a bill
+          </Link>
+          <div className="mt-8 flex flex-wrap gap-3 text-sm">
+            {['No gas fees', 'No wallet install', 'Onchain proof'].map((pill) => (
+              <span
+                key={pill}
+                className="rounded-full border border-gray-200 bg-gray-100 px-4 py-2 font-medium text-gray-700"
+              >
+                {pill}
+              </span>
+            ))}
+          </div>
+        </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+        <aside className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+          <p className="text-xs uppercase tracking-wide text-gray-500">Latest Receipt</p>
+          <h2 className="mt-2 text-xl font-semibold">Dinner at Zara&apos;s</h2>
+          <div className="mt-6 space-y-3 text-sm">
+            <div className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2">
+              <span>Alice</span>
+              <span className="font-medium">30 STRK</span>
+            </div>
+            <div className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2">
+              <span>Bob</span>
+              <span className="font-medium">30 STRK</span>
+            </div>
+            <div className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2">
+              <span>Chris</span>
+              <span className="font-medium text-emerald-600">PAID</span>
+            </div>
+          </div>
+          <div className="mt-6 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+            Tx confirmed on Starkscan
+          </div>
+        </aside>
+      </div>
+    </main>
+  )
 }

@@ -1,0 +1,1 @@
+{"version":1,"contracts":[{"id":"941uuh02d28no","package_name":"starksplit","contract_name":"SplitBill","module_path":"starksplit::SplitBill","artifacts":{"sierra":"starksplit_SplitBill.contract_class.json","casm":"starksplit_SplitBill.compiled_contract_class.json"}}]}
