@@ -21,7 +21,7 @@ export default function HomePage() {
             Create a bill
           </Link>
           <div className="mt-8 flex flex-wrap gap-3 text-sm">
-            {['No gas fees', 'No wallet install', 'Onchain proof'].map((pill) => (
+            {['No gas fees', 'Onchain proof'].map((pill) => (
               <span
                 key={pill}
                 className="rounded-full border-2 border-slate-900 bg-white px-4 py-2 font-bold text-slate-800"
